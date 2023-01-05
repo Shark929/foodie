@@ -27,7 +27,7 @@ class _OrderScreenState extends State<OrderScreen> {
                       itemBuilder: (context, index) {
                         if (snapshot11.data!.docs[index]['user_id'] ==
                                 widget.customerId &&
-                            snapshot11.data!.docs[index]['type'] == "1") {
+                            snapshot11.data!.docs[index]['type'] == "0") {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

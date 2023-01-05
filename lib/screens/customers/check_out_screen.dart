@@ -4,11 +4,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 class CheckOutScreen extends StatefulWidget {
   final String customerId;
-  final DocumentReference<Map<String, dynamic>> data;
   const CheckOutScreen({
     super.key,
     required this.customerId,
-    required this.data,
   });
 
   @override

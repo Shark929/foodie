@@ -227,7 +227,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                     FirebaseFirestore.instance
                                         .collection("Cart")
                                         .add({
-                                      "type": "0",
+                                      "type": "",
                                       "having_time": "",
                                       "time":
                                           "${now.day}/${now.month}/${now.year} ${now.hour}:${now.minute}",
@@ -245,7 +245,6 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   CheckOutScreen(
-                                                    data: value,
                                                     customerId:
                                                         widget.customerId,
                                                   )));
