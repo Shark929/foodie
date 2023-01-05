@@ -23,6 +23,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   String promoCode = "";
   bool isVerifed = false;
   List cartIdList = [];
+  String behaviour = "0"; // 1-dine in, 0-take away
+  bool isDineIn = false;
+  bool isTakeAway = false;
   _launchURL() async {
     const url = 'https://www.pbebank.com/';
     final uri = Uri.parse(url);
@@ -123,39 +126,61 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        width: 80,
-                        height: 80,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.amber),
-                        child: Image.asset("assets/dish.png"),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Text("Dine in"),
-                    ],
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        behaviour = "1";
+                        isDineIn = true;
+                        isTakeAway = false;
+                      });
+                      print(behaviour);
+                    },
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(10),
+                          width: 80,
+                          height: 80,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color:
+                                  isDineIn ? Colors.amber : Colors.grey[500]),
+                          child: Image.asset("assets/dish.png"),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text("Dine in"),
+                      ],
+                    ),
                   ),
-                  Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        width: 80,
-                        height: 80,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.amber),
-                        child: Image.asset("assets/take-away.png"),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Text("Take Away"),
-                    ],
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        behaviour = "0";
+                        isDineIn = false;
+                        isTakeAway = true;
+                      });
+                      print(behaviour);
+                    },
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(10),
+                          width: 80,
+                          height: 80,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color:
+                                  isTakeAway ? Colors.amber : Colors.grey[500]),
+                          child: Image.asset("assets/take-away.png"),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text("Take Away"),
+                      ],
+                    ),
                   )
                 ],
               ),
