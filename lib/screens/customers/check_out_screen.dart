@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:foodie/screens/customers/customer_screens.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CheckOutScreen extends StatefulWidget {
@@ -301,8 +302,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               .doc(cartIdList[i])
                               .update({
                             "type": "0",
+                            "dine_in": behaviour,
                           });
-                        });
+                        }).then((value) => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CustomerScreens(
+                                      customerId: widget.customerId,
+                                    ))));
                       }
                     } else {
                       for (int i = 0; i < cartIdList.length; i++) {
@@ -320,8 +327,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               .doc(cartIdList[i])
                               .update({
                             "type": "0",
+                            "dine_in": behaviour,
                           });
-                        });
+                        }).then((value) => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CustomerScreens(
+                                      customerId: widget.customerId,
+                                    ))));
                       }
                     }
                   },

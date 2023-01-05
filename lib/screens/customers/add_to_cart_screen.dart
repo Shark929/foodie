@@ -228,6 +228,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                         .collection("Cart")
                                         .add({
                                       "type": "",
+                                      "dine_in": "1",
                                       "having_time": "",
                                       "time":
                                           "${now.day}/${now.month}/${now.year} ${now.hour}:${now.minute}",
