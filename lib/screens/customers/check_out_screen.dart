@@ -120,6 +120,48 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               const SizedBox(
                 height: 20,
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        width: 80,
+                        height: 80,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.amber),
+                        child: Image.asset("assets/dish.png"),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text("Dine in"),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        width: 80,
+                        height: 80,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.amber),
+                        child: Image.asset("assets/take-away.png"),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text("Take Away"),
+                    ],
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               InkWell(
                 onTap: () {},
                 child: Container(
