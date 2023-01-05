@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontSize: 24, fontWeight: FontWeight.w600),
                       ),
                       Text(
-                        "400.00",
+                        "0",
                         style: TextStyle(
                             overflow: TextOverflow.ellipsis,
                             fontSize: 24,
@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontSize: 24, fontWeight: FontWeight.w600),
                       ),
                       Text(
-                        "400.00",
+                        "0",
                         style: TextStyle(
                             overflow: TextOverflow.ellipsis,
                             fontSize: 24,
@@ -93,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontSize: 24, fontWeight: FontWeight.w600),
                       ),
                       Text(
-                        "400.00",
+                        "0",
                         style: TextStyle(
                             overflow: TextOverflow.ellipsis,
                             fontSize: 24,
@@ -125,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
                   ),
                   Text(
-                    "400.00",
+                    "0",
                     style: TextStyle(
                         overflow: TextOverflow.ellipsis,
                         fontSize: 24,
@@ -165,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: 24, fontWeight: FontWeight.w600),
                         ),
                         Text(
-                          "400.00",
+                          "0",
                           style: TextStyle(
                               overflow: TextOverflow.ellipsis,
                               fontSize: 24,
@@ -205,7 +205,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: 24, fontWeight: FontWeight.w600),
                         ),
                         Text(
-                          "400.00",
+                          "0",
                           style: TextStyle(
                               overflow: TextOverflow.ellipsis,
                               fontSize: 24,
@@ -246,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: 24, fontWeight: FontWeight.w600),
                         ),
                         Text(
-                          "400.00",
+                          "0",
                           style: TextStyle(
                               overflow: TextOverflow.ellipsis,
                               fontSize: 24,
@@ -287,7 +287,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: 24, fontWeight: FontWeight.w600),
                         ),
                         Text(
-                          "400.00",
+                          "0",
                           style: TextStyle(
                               overflow: TextOverflow.ellipsis,
                               fontSize: 24,
