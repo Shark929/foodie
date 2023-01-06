@@ -86,12 +86,6 @@ class _CustomerLoginScreenState extends State<CustomerLoginScreen> {
                                     passwordController.text ==
                                         snapshot.data!.docs[i]
                                             ['customer_password']) {
-                                  FirebaseFirestore.instance
-                                      .collection("UserWallet")
-                                      .doc(snapshot.data!.docs[i].reference.id)
-                                      .set({
-                                    "balance": "0",
-                                  });
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(

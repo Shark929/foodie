@@ -14,7 +14,7 @@ class CustomerTopUpScreen extends StatefulWidget {
 
 class _CustomerTopUpScreenState extends State<CustomerTopUpScreen> {
   TextEditingController amountController = TextEditingController();
-  String initialValue = "0";
+  String topUpAmount = "0";
 
   bool amountEmpty = false;
   @override
@@ -42,7 +42,7 @@ class _CustomerTopUpScreenState extends State<CustomerTopUpScreen> {
                     TextField(
                       onChanged: (value) {
                         setState(() {
-                          initialValue = value;
+                          topUpAmount = value;
                         });
                       },
                       keyboardType: TextInputType.number,
@@ -58,7 +58,28 @@ class _CustomerTopUpScreenState extends State<CustomerTopUpScreen> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                    onPressed: () {}, child: const Text("Top Up")),
+                    onPressed: () {
+                      DateTime now = DateTime.now();
+                      double newBalance =
+                          widget.balance + double.parse(topUpAmount);
+                      FirebaseFirestore.instance
+                          .collection("UserWallet")
+                          .doc(widget.customerId)
+                          .update({
+                        "balance": newBalance.toStringAsFixed(2)
+                      }).then((value) {
+                        FirebaseFirestore.instance
+                            .collection("Transactions")
+                            .add({
+                          "amount": topUpAmount,
+                          "time":
+                              "${now.day}/${now.month}/${now.year} ${now.hour}:${now.minute}",
+                          "type": "1",
+                          "user_id": widget.customerId,
+                        });
+                      }).then((value) => Navigator.pop(context));
+                    },
+                    child: const Text("Top Up")),
               )
             ],
           ),

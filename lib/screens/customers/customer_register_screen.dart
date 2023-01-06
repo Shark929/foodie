@@ -92,6 +92,7 @@ class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
                         "customer_phone": phoneController.text,
                         "customer_password": passwordController.text,
                         "image": "",
+                        "wallet": "",
                       }).then((value) => Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
