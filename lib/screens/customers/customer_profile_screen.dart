@@ -21,40 +21,40 @@ class _CustomerProfileScreenState extends State<CustomerProfileScreen> {
   String imageUrl = "";
   bool isLoading = false;
   bool canUpload = false;
-  // void pickImage() async {
-  //   isLoading = true;
-  //   file = await imagePicker.pickImage(source: ImageSource.gallery);
-  //   if (file == null) return;
-  //   String uniqueName = DateTime.now().millisecondsSinceEpoch.toString();
-  //   // upload to firebase storage
-  //   // get a reference to storage root
-  //   Reference referenceRoot = FirebaseStorage.instance.ref();
-  //   Reference referenceDirImages = referenceRoot.child('image');
+  void pickImage() async {
+    isLoading = true;
+    file = await imagePicker.pickImage(source: ImageSource.gallery);
+    if (file == null) return;
+    String uniqueName = DateTime.now().millisecondsSinceEpoch.toString();
+    // upload to firebase storage
+    // get a reference to storage root
+    Reference referenceRoot = FirebaseStorage.instance.ref();
+    Reference referenceDirImages = referenceRoot.child('image');
 
-  //   //create a reference for the image to be stored
-  //   Reference referenceImageToUpload = referenceDirImages.child(uniqueName);
+    //create a reference for the image to be stored
+    Reference referenceImageToUpload = referenceDirImages.child(uniqueName);
 
-  //   //handle errors
-  //   try {
-  //     //Store the file
-  //     await referenceImageToUpload.putFile(File(file!.path));
+    //handle errors
+    try {
+      //Store the file
+      await referenceImageToUpload.putFile(File(file!.path));
 
-  //     imageUrl = await referenceImageToUpload.getDownloadURL();
-  //     if (imageUrl != null) {
-  //       setState(() {
-  //         isLoading = false;
-  //         canUpload = true;
-  //       });
-  //       FirebaseFirestore.instance
-  //           .collection("Users")
-  //           .doc(widget.customerId)
-  //           .update({
-  //         "image": imageUrl,
-  //       });
-  //     }
-  //     print(imageUrl);
-  //   } catch (e) {}
-  // }
+      imageUrl = await referenceImageToUpload.getDownloadURL();
+      if (imageUrl != null) {
+        setState(() {
+          isLoading = false;
+          canUpload = true;
+        });
+        FirebaseFirestore.instance
+            .collection("Users")
+            .doc(widget.customerId)
+            .update({
+          "image": imageUrl,
+        });
+      }
+      print(imageUrl);
+    } catch (e) {}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,16 +62,45 @@ class _CustomerProfileScreenState extends State<CustomerProfileScreen> {
       body: SafeArea(
           child: SingleChildScrollView(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          InkWell(
-            onTap: () {},
-            child: Container(
-              height: 200,
-              width: double.infinity,
-              alignment: Alignment.center,
-              color: Colors.amber[300],
-              child: Text("Add a photo"),
-            ),
-          ),
+          StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection("Users")
+                  .doc(widget.customerId)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data!['image'] == "") {
+                    return InkWell(
+                      onTap: pickImage,
+                      child: Container(
+                        height: 200,
+                        width: double.infinity,
+                        alignment: Alignment.center,
+                        color: Colors.amber[300],
+                        child: Text("Add a photo"),
+                      ),
+                    );
+                  } else if (snapshot.data!['image'] != "") {
+                    return InkWell(
+                      onTap: pickImage,
+                      child: Container(
+                        height: 200,
+                        width: double.infinity,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              snapshot.data!['image'],
+                            ),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                }
+                return const SizedBox();
+              }),
           const SizedBox(
             height: 20,
           ),
@@ -101,17 +130,37 @@ class _CustomerProfileScreenState extends State<CustomerProfileScreen> {
           const SizedBox(
             height: 20,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text("ivan@gmail.com"),
-          ),
+          StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection("Users")
+                  .doc(widget.customerId)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text(snapshot.data!['customer_email']),
+                  );
+                }
+                return const SizedBox();
+              }),
           const SizedBox(
             height: 20,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text("01133869910"),
-          ),
+          StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection("Users")
+                  .doc(widget.customerId)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text(snapshot.data!['customer_phone']),
+                  );
+                }
+                return const SizedBox();
+              }),
           const SizedBox(
             height: 20,
           ),
@@ -129,7 +178,7 @@ class _CustomerProfileScreenState extends State<CustomerProfileScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Order history"),
+                  const Text("Order history"),
                   Image.asset("assets/forward.png"),
                 ],
               ),

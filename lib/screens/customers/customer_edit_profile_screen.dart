@@ -31,7 +31,14 @@ class _CustomerEditProfileState extends State<CustomerEditProfile> {
               EditInputComponent(
                   label: "Email",
                   hintText: "ivan@gmail.com",
-                  function: () {},
+                  function: () {
+                    FirebaseFirestore.instance
+                        .collection("Users")
+                        .doc(widget.customerId)
+                        .update({
+                      "customer_email": emailController.text,
+                    });
+                  },
                   controller: emailController),
               const SizedBox(
                 height: 20,
@@ -39,7 +46,14 @@ class _CustomerEditProfileState extends State<CustomerEditProfile> {
               EditInputComponent(
                   label: "Phone",
                   hintText: "01133869910",
-                  function: () {},
+                  function: () {
+                    FirebaseFirestore.instance
+                        .collection("Users")
+                        .doc(widget.customerId)
+                        .update({
+                      "customer_phone": phoneController.text,
+                    });
+                  },
                   controller: phoneController),
               const SizedBox(
                 height: 20,

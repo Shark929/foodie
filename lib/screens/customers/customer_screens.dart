@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:foodie/screens/customers/chat_screen.dart';
 import 'package:foodie/screens/customers/customer_cart_screen.dart';
