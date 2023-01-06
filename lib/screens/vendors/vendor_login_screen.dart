@@ -119,10 +119,8 @@ class _VendorLoginScreenState extends State<VendorLoginScreen> {
                                                       BorderRadius.circular(10),
                                                   color: Colors.red
                                                       .withOpacity(10)),
-                                              child: Column(children: [
-                                                Text(
-                                                    "Wrong username or password"),
-                                              ]),
+                                              child: const Text(
+                                                  "Wrong username or password"),
                                             ),
                                           ));
                                 }

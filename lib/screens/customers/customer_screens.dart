@@ -53,7 +53,7 @@ class _CustomerScreensState extends State<CustomerScreens> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => CustomerCartScreen(
-                              customerID: "",
+                              customerID: widget.customerId,
                             )));
               },
               icon: Icon(
@@ -66,7 +66,7 @@ class _CustomerScreensState extends State<CustomerScreens> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => NotificationScreen(
-                              customerId: "",
+                              customerId: widget.customerId,
                             )));
               },
               icon: Icon(
@@ -79,7 +79,7 @@ class _CustomerScreensState extends State<CustomerScreens> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => ChatScreen(
-                            customerId: "",
+                            customerId: widget.customerId,
                           )),
                 );
               },

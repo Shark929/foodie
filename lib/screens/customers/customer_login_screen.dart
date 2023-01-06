@@ -56,31 +56,59 @@ class _CustomerLoginScreenState extends State<CustomerLoginScreen> {
             const SizedBox(
               height: 50,
             ),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-              ),
-              child: ElevatedButton(
-                  onPressed: () {
-                    // if (emailController.text.isEmpty) {
-                    //   setState(() {
-                    //     emailEmpty = true;
-                    //   });
-                    // }
-                    // if (passwordController.text.isEmpty) {
-                    //   setState(() {
-                    //     passwordEmpty = true;
-                    //   });
-                    // }
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                CustomerScreens(customerId: "")));
-                  },
-                  child: const Text("Login")),
-            ),
+            StreamBuilder(
+                stream:
+                    FirebaseFirestore.instance.collection("Users").snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                      ),
+                      child: ElevatedButton(
+                          onPressed: () {
+                            if (emailController.text.isEmpty) {
+                              setState(() {
+                                emailEmpty = true;
+                              });
+                            } else if (passwordController.text.isEmpty) {
+                              setState(() {
+                                passwordEmpty = true;
+                              });
+                            } else {
+                              for (int i = 0;
+                                  i < snapshot.data!.docs.length;
+                                  i++) {
+                                if (emailController.text ==
+                                        snapshot.data!.docs[i]
+                                            ['customer_email'] &&
+                                    passwordController.text ==
+                                        snapshot.data!.docs[i]
+                                            ['customer_password']) {
+                                  FirebaseFirestore.instance
+                                      .collection("UserWallet")
+                                      .doc(snapshot.data!.docs[i].reference.id)
+                                      .set({
+                                    "balance": "0",
+                                  });
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => CustomerScreens(
+                                          customerId: snapshot
+                                              .data!.docs[i].reference.id),
+                                    ),
+                                  );
+                                }
+                              }
+                            }
+                          },
+                          child: const Text("Login")),
+                    );
+                  }
+                  return const SizedBox();
+                }),
             const SizedBox(
               height: 20,
             ),

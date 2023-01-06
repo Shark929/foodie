@@ -1,6 +1,10 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:foodie/screens/customers/check_out_screen.dart';
+import 'package:foodie/screens/customers/customer_cart_screen.dart';
+import 'package:foodie/screens/customers/customer_screens.dart';
 
 class AddToCartScreen extends StatefulWidget {
   final String customerId;
@@ -16,6 +20,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
   TextEditingController quantityController = TextEditingController();
   int quantity = 1;
   double newPrice = 0;
+  List check = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,8 +148,6 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                     .collection("Customization")
                                     .snapshots(),
                                 builder: (context, snapshot) {
-                                  int i = 0;
-
                                   if (snapshot.hasData) {
                                     return ListView.builder(
                                         shrinkWrap: true,
@@ -153,11 +156,6 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                           if (snapshot.data!.docs[index]
                                                   ['category'] ==
                                               widget.data['category']) {
-                                            i++;
-                                            /**
-                                               * category list check box
-                                               */
-
                                             return Container(
                                               margin: const EdgeInsets.only(
                                                   bottom: 10),
@@ -221,13 +219,16 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                     print(newPrice);
                                     print(quantity);
                                     print(widget.data['item_price']);
+                                    Random random = Random();
+                                    int randomNumber = random.nextInt(1000);
                                     double totalPrice = quantity *
                                         double.parse(widget.data['item_price']);
                                     DateTime now = DateTime.now();
                                     FirebaseFirestore.instance
                                         .collection("Cart")
                                         .add({
-                                      "type": "",
+                                      "type":
+                                          "", //1-paid, 2-vendoraccept, 3-processing, 4-completed, 5-vendorcancelled, 6-user-cancelled
                                       "dine_in": "1",
                                       "having_time": "",
                                       "time":
@@ -240,13 +241,14 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                       "vendor_id": widget.data['vendor_id'],
                                       "user_id": widget.customerId,
                                       "image": widget.data['image'],
+                                      "order_number": randomNumber,
                                     }).then((value) {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  CheckOutScreen(
-                                                    customerId:
+                                                  CustomerCartScreen(
+                                                    customerID:
                                                         widget.customerId,
                                                   )));
                                     });

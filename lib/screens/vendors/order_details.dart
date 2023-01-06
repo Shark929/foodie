@@ -17,7 +17,7 @@ class _OrderDetailsState extends State<OrderDetails> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.amber,
-        title: Text(widget.data['order_number']),
+        title: Text("#953"),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -34,24 +34,24 @@ class _OrderDetailsState extends State<OrderDetails> {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: NetworkImage(
-                      widget.data['image'],
+                      "https://firebasestorage.googleapis.com/v0/b/foodie-890a6.appspot.com/o/image%2F1671191137913?alt=media&token=d04ba316-b407-44be-95db-345061535b15",
                     ),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
               Text(
-                widget.data['item_name'],
+                "McD",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
               ),
               const SizedBox(
                 height: 20,
               ),
-              Text("Quantity: x${widget.data['quantity']}"),
+              Text("Quantity: x2"),
               const SizedBox(
                 height: 20,
               ),
-              Text("RM ${widget.data['item_price']}"),
+              Text("RM 10.00"),
               const SizedBox(
                 height: 20,
               ),
@@ -75,47 +75,45 @@ class _OrderDetailsState extends State<OrderDetails> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  StreamBuilder(
-                      stream: FirebaseFirestore.instance
-                          .collection("Cart")
-                          .snapshots(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return InkWell(
-                            onTap: () {},
-                            child: Container(
-                              width: 150,
-                              height: 50,
-                              alignment: Alignment.center,
-                              child: Text(
-                                "Cancel",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              decoration: BoxDecoration(
-                                  color: Colors.redAccent,
-                                  borderRadius: BorderRadius.circular(10)),
-                            ),
-                          );
-                        }
-                        return const SizedBox();
-                      }),
-                  Container(
-                    width: 150,
-                    height: 50,
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Accept",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                      width: 150,
+                      height: 50,
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Cancel",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
+                      decoration: BoxDecoration(
+                          color: Colors.redAccent,
+                          borderRadius: BorderRadius.circular(10)),
                     ),
-                    decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(10)),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      /**
+                       * Update cart
+                       */
+                    },
+                    child: Container(
+                      width: 150,
+                      height: 50,
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Accept",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(10)),
+                    ),
                   )
                 ],
               )

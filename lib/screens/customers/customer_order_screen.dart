@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class OrderScreen extends StatefulWidget {
@@ -23,141 +24,162 @@ class _OrderScreenState extends State<OrderScreen> {
           child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: SingleChildScrollView(
-          child: Column(children: [
-            const SizedBox(
-              height: 20,
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Container(
-                padding: const EdgeInsets.all(30),
-                width: 200,
-                height: 200,
-                decoration: BoxDecoration(
-                  color: Colors.amber,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Image.asset(
-                  "assets/cooking.png",
-                  color: Colors.black,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              width: 200,
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Image.asset(
-                        "assets/circle.png",
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      const Text(
-                        "Order accepted",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Container(
-                      margin: const EdgeInsets.only(left: 12),
-                      width: 5,
-                      height: 30,
-                      color: Colors.black,
+            child: StreamBuilder(
+          stream: FirebaseFirestore.instance.collection("Cart").snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              for (int i = 0; i < snapshot.data!.docs.length; i++) {
+                if (snapshot.data!.docs[i]['user_id'] == widget.customerId) {
+                  return Column(children: [
+                    const SizedBox(
+                      height: 20,
                     ),
-                  ),
-                  Row(
-                    children: [
-                      Image.asset(
-                        "assets/circle.png",
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      const Text(
-                        "Chef is preparing",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
+                    Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                        padding: const EdgeInsets.all(30),
+                        width: 200,
+                        height: 200,
+                        decoration: BoxDecoration(
+                          color: Colors.amber,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Image.asset(
+                          "assets/cooking.png",
+                          color: Colors.black,
                         ),
                       ),
-                    ],
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Container(
-                      margin: const EdgeInsets.only(left: 12),
-                      width: 5,
-                      height: 30,
-                      color: Colors.black,
                     ),
-                  ),
-                  Row(
-                    children: [
-                      Image.asset(
-                        "assets/circle.png",
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      width: 200,
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Image.asset(
+                                "assets/circle.png",
+                                color: snapshot.data!.docs[i]['type'] == "2"
+                                    ? Colors.amber
+                                    : null,
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              const Text(
+                                "Order accepted",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Container(
+                              margin: const EdgeInsets.only(left: 12),
+                              width: 5,
+                              height: 30,
+                              color: Colors.black,
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Image.asset(
+                                "assets/circle.png",
+                                color: snapshot.data!.docs[i]['type'] == "3"
+                                    ? Colors.amber
+                                    : null,
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              const Text(
+                                "Chef is preparing",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Container(
+                              margin: const EdgeInsets.only(left: 12),
+                              width: 5,
+                              height: 30,
+                              color: Colors.black,
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Image.asset(
+                                "assets/circle.png",
+                                color: snapshot.data!.docs[i]['type'] == "4"
+                                    ? Colors.amber
+                                    : null,
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              const Text(
+                                "Order completed",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          ExpansionTile(
+                            title: const Text("Order Details"),
+                            children: [
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  snapshot.data!.docs[i]['item_name'],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                      "X ${snapshot.data!.docs[i]['quantity']}")),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                    "Total: RM ${snapshot.data!.docs[i]['total_price']}"),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      const Text(
-                        "Order completed",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  ExpansionTile(
-                    title: const Text("Order Details"),
-                    children: [
-                      ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: orderDetails.length,
-                          itemBuilder: (context, index) {
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Text(orderDetails[index]['item_name']),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Text("X ${orderDetails[index]['quantity']}"),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                    "Total: RM ${orderDetails[index]['total_price']}"),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                              ],
-                            );
-                          }),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ]),
-        ),
+                    ),
+                  ]);
+                }
+              }
+            }
+            return const SizedBox();
+          },
+        )),
       )),
     );
   }
