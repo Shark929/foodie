@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:foodie/screens/customers/check_out_screen.dart';
+import 'package:foodie/screens/customers/chat_screen.dart';
+import 'package:foodie/screens/customers/customer_cart_screen.dart';
 import 'package:foodie/screens/customers/customer_home_screen.dart';
 import 'package:foodie/screens/customers/customer_order_screen.dart';
 import 'package:foodie/screens/customers/customer_profile_screen.dart';
 import 'package:foodie/screens/customers/customer_wallet_screen.dart';
+import 'package:foodie/screens/customers/notification_screen.dart';
 
 class CustomerScreens extends StatefulWidget {
   final String customerId;
@@ -46,13 +48,41 @@ class _CustomerScreensState extends State<CustomerScreens> {
         title: const Text("Foodie"),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CustomerCartScreen(
+                              customerID: "",
+                            )));
+              },
+              icon: Icon(
+                Icons.shopping_basket_rounded,
+                color: Colors.black,
+              )),
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => NotificationScreen(
+                              customerId: "",
+                            )));
+              },
               icon: Icon(
                 Icons.notifications,
                 color: Colors.black,
               )),
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ChatScreen(
+                            customerId: "",
+                          )),
+                );
+              },
               icon: Icon(
                 Icons.chat,
                 color: Colors.black,
@@ -72,14 +102,6 @@ class _CustomerScreensState extends State<CustomerScreens> {
             icon: Image.asset("assets/food.png"),
             label: 'Order',
           ),
-          // BottomNavigationBarItem(
-          //   icon: Image.asset(
-          //     "assets/shopping-cart.png",
-          //     height: 35,
-          //     width: 35,
-          //   ),
-          //   label: 'Cart',
-          // ),
           BottomNavigationBarItem(
             icon: Image.asset("assets/wallet.png"),
             label: 'Wallet',

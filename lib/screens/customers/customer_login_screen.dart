@@ -56,62 +56,31 @@ class _CustomerLoginScreenState extends State<CustomerLoginScreen> {
             const SizedBox(
               height: 50,
             ),
-            StreamBuilder(
-                stream:
-                    FirebaseFirestore.instance.collection("Users").snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                      ),
-                      child: ElevatedButton(
-                          onPressed: () {
-                            if (emailController.text.isEmpty) {
-                              setState(() {
-                                emailEmpty = true;
-                              });
-                            }
-                            if (passwordController.text.isEmpty) {
-                              setState(() {
-                                passwordEmpty = true;
-                              });
-                            }
-                            if (emailController.text.isNotEmpty &&
-                                passwordController.text.isNotEmpty) {
-                              for (int i = 0;
-                                  i < snapshot.data!.docs.length;
-                                  i++) {
-                                if (snapshot.data!.docs[i]['user_email'] ==
-                                        emailController.text &&
-                                    snapshot.data!.docs[i]['user_password'] ==
-                                        passwordController.text) {
-                                  Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => CustomerScreens(
-                                                customerId: snapshot
-                                                    .data!.docs[i].reference.id,
-                                              )),
-                                      (route) => false);
-                                } else {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) => Dialog(
-                                            child: WarningDialog(
-                                                label:
-                                                    "Invalid email or password"),
-                                          ));
-                                }
-                              }
-                            }
-                          },
-                          child: const Text("Login")),
-                    );
-                  }
-                  return const SizedBox();
-                }),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
+              child: ElevatedButton(
+                  onPressed: () {
+                    // if (emailController.text.isEmpty) {
+                    //   setState(() {
+                    //     emailEmpty = true;
+                    //   });
+                    // }
+                    // if (passwordController.text.isEmpty) {
+                    //   setState(() {
+                    //     passwordEmpty = true;
+                    //   });
+                    // }
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                CustomerScreens(customerId: "")));
+                  },
+                  child: const Text("Login")),
+            ),
             const SizedBox(
               height: 20,
             ),

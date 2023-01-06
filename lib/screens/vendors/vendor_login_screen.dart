@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:foodie/bloc/cubit.dart';
 import 'package:foodie/components/logo.dart';
 import 'package:foodie/components/register_input.dart';
 import 'package:foodie/screens/vendors/vendor_first_time_login.dart';

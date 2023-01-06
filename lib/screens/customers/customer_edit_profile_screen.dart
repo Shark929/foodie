@@ -23,48 +23,30 @@ class _CustomerEditProfileState extends State<CustomerEditProfile> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-            child: StreamBuilder(
-          stream: FirebaseFirestore.instance
-              .collection("Users")
-              .doc(widget.customerId)
-              .snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return Column(
-                children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  EditInputComponent(
-                      label: "Email",
-                      hintText: snapshot.data!['user_email'],
-                      function: () {
-                        snapshot.data!.reference.update({
-                          "user_email": emailController.text,
-                        });
-                      },
-                      controller: emailController),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  EditInputComponent(
-                      label: "Phone",
-                      hintText: snapshot.data!['user_phone'],
-                      function: () {
-                        snapshot.data!.reference.update({
-                          "user_phone": phoneController.text,
-                        });
-                      },
-                      controller: phoneController),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                ],
-              );
-            }
-            return const SizedBox();
-          },
-        )),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              EditInputComponent(
+                  label: "Email",
+                  hintText: "ivan@gmail.com",
+                  function: () {},
+                  controller: emailController),
+              const SizedBox(
+                height: 20,
+              ),
+              EditInputComponent(
+                  label: "Phone",
+                  hintText: "01133869910",
+                  function: () {},
+                  controller: phoneController),
+              const SizedBox(
+                height: 20,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -31,18 +31,22 @@ class PromotionScreen extends StatelessWidget {
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       data['promo_title'],
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
                     ),
-                    Text(
-                      "${data['promo_discount']}%",
-                      style: TextStyle(
-                          fontSize: 36,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "${data['promo_discount']}%",
+                        style: TextStyle(
+                            fontSize: 48,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),
+                      ),
                     ),
                     Align(
                         alignment: Alignment.centerRight,

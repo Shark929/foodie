@@ -177,7 +177,7 @@ class _VendorRegisterScreenState extends State<VendorRegisterScreen> {
                         FirebaseFirestore.instance.collection("Vendor").add({
                           "vendor_email": emailController.text,
                           "vendor_phone": phoneController.text,
-                          "vendor_walletl_id": "", //initally empty
+                          "vendor_wallet_id": "", //initally empty
                           "location_id": location,
                           "mall_id": mall,
                           "restaurant_name": restaurantNameController.text,
@@ -203,9 +203,11 @@ class _VendorRegisterScreenState extends State<VendorRegisterScreen> {
                   height: 20,
                 ),
                 Container(
+                  alignment: Alignment.center,
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text("Already have an account, "),
                       InkWell(

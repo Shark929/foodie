@@ -86,20 +86,7 @@ class _CustomerRegisterScreenState extends State<CustomerRegisterScreen> {
                       setState(() {
                         passwordEmpty = true;
                       });
-                    } else {
-                      FirebaseFirestore.instance.collection("Users").add({
-                        "user_email": emailController.text,
-                        "user_password": passwordController.text,
-                        "user_phone": phoneController.text,
-                        "user_wallet_id": "",
-                        "user_cart_id": "",
-                        "image": "",
-                      }).then((value) => Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CustomerLoginScreen()),
-                          (route) => false));
-                    }
+                    } else {}
                   },
                   child: const Text("Register")),
             ),

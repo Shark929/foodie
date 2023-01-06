@@ -38,7 +38,7 @@ class _CustomerTopUpScreenState extends State<CustomerTopUpScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Enter your amount"),
+                    const Text("Enter your amount"),
                     TextField(
                       onChanged: (value) {
                         setState(() {
@@ -47,7 +47,7 @@ class _CustomerTopUpScreenState extends State<CustomerTopUpScreen> {
                       },
                       keyboardType: TextInputType.number,
                       controller: amountController,
-                      decoration: InputDecoration(hintText: "RM 20.00"),
+                      decoration: const InputDecoration(hintText: "RM 20.00"),
                     ),
                   ],
                 ),
@@ -55,52 +55,11 @@ class _CustomerTopUpScreenState extends State<CustomerTopUpScreen> {
               const SizedBox(
                 height: 150,
               ),
-              StreamBuilder(
-                  stream: FirebaseFirestore.instance
-                      .collection("UserWallet")
-                      .doc(widget.customerId)
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    double newAmount = 0;
-                    if (snapshot.hasData) {
-                      newAmount = widget.balance + double.parse(initialValue);
-                      return Container(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                            onPressed: () {
-                              snapshot.data!.reference
-                                  .update({
-                                    "user_balance":
-                                        newAmount.toStringAsFixed(2),
-                                  })
-                                  .then((value) => showDialog(
-                                      context: context,
-                                      builder: (context) => const Dialog(
-                                            child: SuccessDialog(
-                                                label: "Top Up Successfully"),
-                                          )))
-                                  .then((value) {
-                                    /**
-                                             * date
-                                             */
-                                    DateTime now = DateTime.now();
-                                    FirebaseFirestore.instance
-                                        .collection("Transactions")
-                                        .add({
-                                      "user_id": widget.customerId,
-                                      "amount": initialValue,
-                                      "time":
-                                          "${now.day}/${now.month}/${now.year} ${now.hour}:${now.minute}",
-                                      "type": "1" //1 for top up
-                                    });
-                                  })
-                                  .then((value) => Navigator.pop(context));
-                            },
-                            child: const Text("Top Up")),
-                      );
-                    }
-                    return const SizedBox();
-                  }),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                    onPressed: () {}, child: const Text("Top Up")),
+              )
             ],
           ),
         ),
