@@ -198,10 +198,21 @@ class _CustomerCartScreenState extends State<CustomerCartScreen> {
                               width: double.infinity,
                               child: ElevatedButton(
                                   onPressed: () {
+                                    DateTime now = DateTime.now();
                                     snapshot.data!.docs[i].reference.update({
                                       "having_time": time,
                                       "dine_in": dineIn,
                                       "type": "1",
+                                    }).then((value) {
+                                      FirebaseFirestore.instance
+                                          .collection("Transactions")
+                                          .add({
+                                        "amount": "",
+                                        "time":
+                                            "${now.day}/${now.month}/${now.year} ${now.hour}:${now.minute}",
+                                        "type": "2",
+                                        "user_id": widget.customerID,
+                                      });
                                     }).then((value) =>
                                         Navigator.pushAndRemoveUntil(
                                             context,
